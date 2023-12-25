@@ -1,0 +1,24 @@
+///100 Days of RTL///
+
+///Abilash P///
+
+///Mod N Down counter (Synchronous Reset)///
+
+module counter (CLK, RST, N, out);
+  input  [4:0]N;
+  input  CLK, RST;
+  output reg [4:0]out;
+  
+  always @ (posedge CLK)
+    begin
+      if(RST)
+        out<=N;
+      else
+        if(out == 5'b00000)
+            out<=N-1;
+        else
+          out<=out - 1'b1;
+    end
+endmodule
+        
+        
