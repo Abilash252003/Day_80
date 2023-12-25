@@ -1,0 +1,59 @@
+///100 Days of RTL///
+
+///Abilash P///
+
+///Mod N Down counter (Synchronous Reset)///
+
+module counter_tb ();
+  reg [4:0]N;
+  reg CLK, RST;
+  wire [4:0]out;
+  
+  counter DUT (.N(N), .CLK(CLK), .RST(RST), .out(out));
+  
+  initial 
+    begin
+      CLK=1;
+      forever #5 CLK = ~CLK;  
+    end
+  
+  initial
+    begin
+      N   = 5'b01001; //MOD 9
+      RST = 1'b1;
+      #10;
+      RST = 1'b0;
+      #90;
+      N   = 5'b01101;   //MOD - 13
+      RST = 1'b1;
+      #10;
+      RST = 1'b0;
+      #130;
+      N   = 5'b00101;     //MOD - 5
+      RST = 1'b1;
+      #10;
+      RST = 1'b0;
+      #50;
+      N   = 5'b00111;     //MOD - 7
+      RST = 1'b1;
+      #10;
+      RST = 1'b0;
+      #70; 
+      N   = 5'b00011;    //MOD - 3
+      RST = 1'b1;
+      #10;
+      RST = 1'b0;
+      #30;
+      $finish;
+    end
+  
+    initial
+     begin
+       $dumpfile("dump.vcd");
+       $dumpvars(1);
+     end
+  
+  initial
+    $monitor("simtime = %g, CLK = %b, Reset = %b, N = %d, out = %b", $time, CLK, RST, N, out);
+  
+endmodule
